@@ -21,6 +21,7 @@ class MessagePage;
 class MessageModel;
 class BlockBrowser;
 class tradingDialog;
+class FileSharingPage;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -81,6 +82,7 @@ private:
     MessagePage *messagePage;
     QLabel* netLabel;
     BlockBrowser *blockBrowser;
+	FileSharingPage *filesharingPage;
     tradingDialog   *tradingDialogPage;
     QLabel *labelEncryptionIcon;
     QLabel *labelStakingIcon;
@@ -113,6 +115,7 @@ private:
     QAction *masternodeManagerAction;
     QAction *messageAction;
     QAction *blockAction;
+	QAction *filesharingAction;
     QAction *TradingAction;
     QAction *showBackupsAction;
 
@@ -185,6 +188,8 @@ private slots:
     void gotoTradingPage();
     /** Switch to block explorer*/
     void gotoBlockBrowser();
+	/** Switch to FileSharing page */
+	void gotoFileSharingPage();
     /** Switch to masternode manager page*/
     void gotoMasternodeManagerPage();
     /** Show Sign/Verify Message dialog and switch to sign message tab */

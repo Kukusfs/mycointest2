@@ -328,6 +328,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/blockbrowser.h \
     src/qt/plugins/mrichtexteditor/mrichtextedit.h \
     src/qt/qvalidatedtextedit.h \
+	src/qt/filesharingpage.h \
     src/qt/tradingdialog.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
@@ -442,6 +443,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/qvalidatedtextedit.cpp \
     src/qt/plugins/mrichtexteditor/mrichtextedit.cpp \
     src/qt/tradingdialog.cpp \
+	src/qt/filesharingpage.cpp \
     src/rpcsmessage.cpp
 
 RESOURCES += \
@@ -469,6 +471,7 @@ FORMS += \
     src/qt/forms/sendmessagesdialog.ui \
     src/qt/forms/blockbrowser.ui \
     src/qt/forms/tradingdialog.ui \
+	src/qt/forms/filesharingpage.ui \
     src/qt/plugins/mrichtexteditor/mrichtextedit.ui
 
 contains(USE_QRCODE, 1) {

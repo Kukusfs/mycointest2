@@ -38,6 +38,7 @@
 #include "messagepage.h"
 #include "blockbrowser.h"
 #include "tradingdialog.h"
+#include "filesharingpage.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -131,7 +132,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     transactionsPage->setLayout(vbox);
 
     blockBrowser = new BlockBrowser(this);
-
+	filesharingPage = new FileSharingPage(this);
     addressBookPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::SendingTab);
 
     receiveCoinsPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::ReceivingTab);
@@ -156,6 +157,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget->addWidget(masternodeManagerPage);
     centralStackedWidget->addWidget(messagePage);
     centralStackedWidget->addWidget(blockBrowser);
+	centralStackedWidget->addWidget(filesharingPage);
     centralStackedWidget->addWidget(tradingDialogPage);
 
     QWidget *centralWidget = new QWidget();
@@ -287,6 +289,12 @@ void BitcoinGUI::createActions()
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(receiveCoinsAction);
 
+	filesharingAction = new QAction(QIcon(":/icons/filesharing"), tr("&FileSharing"), this);
+    filesharingAction->setStatusTip(tr("go to FileSharing Page"));
+    filesharingAction->setToolTip(filesharingAction->statusTip());
+    filesharingAction->setCheckable(true);
+    tabGroup->addAction(filesharingAction);
+	
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
     sendCoinsAction->setToolTip(tr("Send coins to a XIOS address"));
     sendCoinsAction->setCheckable(true);
@@ -347,6 +355,7 @@ void BitcoinGUI::createActions()
     connect(masternodeManagerAction, SIGNAL(triggered()), this, SLOT(gotoMasternodeManagerPage()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(gotoMessagePage()));
+	connect(filesharingAction, SIGNAL(triggered()), this, SLOT(gotoFileSharingPage()));
 
     quitAction = new QAction(tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -464,7 +473,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
     toolbar->addAction(masternodeManagerAction);
-
+	toolbar->addAction(filesharingAction);
     if (!fLiteMode){
         toolbar->addAction(messageAction);
     }
@@ -1033,6 +1042,16 @@ void BitcoinGUI::gotoMessagePage()
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
     connect(exportAction, SIGNAL(triggered()), messagePage, SLOT(exportClicked()));
+}
+void BitcoinGUI::gotoFileSharingPage()
+{
+    filesharingAction->setChecked(true);
+    centralStackedWidget->setCurrentWidget(filesharingPage);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+//    centralWidget->setMaximumWidth(1280);
+ //   centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::dragEnterEvent(QDragEnterEvent *event)
